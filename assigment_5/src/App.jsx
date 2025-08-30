@@ -3,12 +3,14 @@ import './App.css'
 import Card from './SubComponent/Card';
 import SearchField from './SubComponent/SearchField';
 import SkeletonLoader from './SubComponent/Loader/SkeletonLoader';
+import Error from './SubComponent/Error';
 
 function App() {
   
   const [isLoading, setIsLoading] = useState(true);
   const [games, setGames] = useState([]);
   const [search,setSearchItem] = useState("")
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -16,7 +18,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
+          "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.jso"
         );
         const data = await response.json();
 
@@ -25,6 +27,7 @@ function App() {
         setIsLoading(false)
       } catch (error) {
         console.error("Error fetching data:", error);
+        setError("Could not load game data. Please try again later.");
       } finally {
         setIsLoading(false);
       }
@@ -34,6 +37,12 @@ function App() {
   
   if(isLoading){
   return <SkeletonLoader />
+  }
+
+  if (error) {
+    return (
+      <Error error={error}/>
+    );
   }
 
   return (
