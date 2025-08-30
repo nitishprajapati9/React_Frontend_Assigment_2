@@ -18,7 +18,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.jso"
+          "https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json"
         );
         const data = await response.json();
 
